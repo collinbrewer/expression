@@ -1,5 +1,8 @@
 (function(){
 
+   var JSONPointer=require("../bower-components/json-pointer/index.js");
+   var DotPointer=JSONPointer.Factory({delimiter:"."});
+
    function KeyPathExpression(keyPath)
    {
       this.type="keyPath";
@@ -23,7 +26,7 @@
 
       debug && console.log("using getter: ", getter);
 
-      var value=.Object.get(o, this.keyPath, getter);
+      var value=DotPointer.evaluate(this.keyPath, o, getter);
 
       debug && console.log("value: ", value);
 
@@ -91,7 +94,7 @@
 
    // expose
    (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mode)));
+      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
    })(KeyPathExpression, "KeyPathExpression");
 
 })();

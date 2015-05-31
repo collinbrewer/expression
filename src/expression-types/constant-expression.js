@@ -55,7 +55,7 @@
          }
       }
 
-      v=.Object.stringify(v);
+      v=JSON.stringify(v);//v=(v===null ? "null" : (v===undefined ? "undefined" : v.toString()));
 
       return v;
    };
@@ -65,6 +65,6 @@
    };
 
    (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mode)));
-   })(CosntantExpression, "CosntantExpression");
+      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
+   })(ConstantExpression, "CosntantExpression");
 })();

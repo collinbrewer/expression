@@ -4,8 +4,14 @@
 //    variable - $VARIABLE_KEY
 //    key path - path.to.key
 //    function -
+var ConstantExpression=require("./expression-types/constant-expression.js");
+var EvaluatedObjectExpression=require("./expression-types/evaluated-object-expression.js");
+var FunctionExpression=require("./expression-types/function-expression.js");
+var KeyPathExpression=require("./expression-types/key-path-expression.js");
+var VariableExpression=require("./expression-types/variable-expression.js");
 
-(function(){
+
+(function(root){
 
    var _cache={};
    var _debug=false;
@@ -107,7 +113,7 @@
          }
          else
          {
-            if(e.getType()==="variable")
+            if(e.type==="variable")
             {
                e._substitutionVariables=vars;
             }
@@ -361,7 +367,7 @@
                {
                   //v=o.get ? o.get(e) : .Object.get(o, e);
                   //v=getter(o, e);
-                  v=.Object.get(o, e, getter);
+                  v=HR.Object.get(o, e, getter);
                }
             }
          }
@@ -421,6 +427,8 @@
 
    // expose
    (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mode)));
+      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
+      root[name]=mod;
    })(Expression, "Expression");
-})();
+
+})(this);

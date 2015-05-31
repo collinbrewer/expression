@@ -1,12 +1,15 @@
 (function(){
 
+   var JSONPointer=require("../bower-components/json-pointer/index.js");
+   var DotPointer=JSONPointer.Factory({delimiter:"."});
+
    function VariableExpression(variable, vars){
 
       this.type="variable";
       this.variable=variable;
 
       this._substitutionVariables=vars;
-   },
+   }
 
    VariableExpression.prototype.copy=function(){
       return new VariableExpression(this.variable, this._substitutionVariables); // Note sure this is needed... .Util.extend({}, this._substitutionVariables));
@@ -20,7 +23,7 @@
 
       if(vars)
       {
-         value=HR.Object.get(vars, this.variable.substr(1));
+         value=DotPointer.evaluate(this.variable.substr(1), vars);
       }
       else
       {
@@ -35,7 +38,7 @@
    VariableExpression.prototype._expressionReferencesKeyPath=function(){ return false; };
 
    VariableExpression.prototype.stringify=function(shouldSubstitute){
-      return (shouldSubstitute ? .Object.stringify(this.getValueWithObject(null)) : this.variable);
+      return (shouldSubstitute ? JSON.toString(this.getValueWithObject(null)) : this.variable);
    };
 
    VariableExpression.prototype.toLocaleString=function(){
@@ -44,6 +47,6 @@
 
    // expose
    (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mode)));
+      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
    })(VariableExpression, "VariableExpression");
 })();

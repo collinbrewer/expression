@@ -2,7 +2,7 @@
 
    function EvaluatedObjectExpression()
    {
-      this.type="evaluatedobject";
+      this.type="evaluatedObject";
    }
 
    EvaluatedObjectExpression.prototype.copy=function(){
@@ -28,6 +28,6 @@
 
    // expose
    (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mode)));
+      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
    })(EvaluatedObjectExpression, "EvaluatedObjectExpression");
 })();

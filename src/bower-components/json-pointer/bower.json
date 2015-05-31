@@ -1,11 +1,11 @@
 {
-  "name": "expression",
+  "name": "json-pointer",
   "main": "index.js",
   "version": "0.0.0",
   "authors": [
     "Collin Brewer <collin@brewer-collective.com>"
   ],
-  "description": "A utility for defining and parsing a logical expressions",
+  "description": "A javascript implementation of the RFC 6901 Spec: http://tools.ietf.org/html/rfc6901",
   "moduleType": [
     "amd",
     "es6",
@@ -13,7 +13,11 @@
     "node"
   ],
   "keywords": [
-    "expression"
+    "json",
+    "pointer",
+    "rfc",
+    "6901",
+    "keypath"
   ],
   "license": "MIT",
   "ignore": [
@@ -22,8 +26,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "json-pointer": "https://collinbrewer@bitbucket.org/collinbrewer/json-pointer.git"
-  }
+  ]
 }
