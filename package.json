@@ -1,0 +1,15 @@
+{
+  "name": "expression",
+  "version": "0.0.1",
+  "description": "A utility for node and browser that evaluates objects against an expression.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://collinbrewer@bitbucket.org/collinbrewer/expression.git"
+  },
+  "author": "Collin Brewer <collin@brewer-collective.com>",
+  "license": "MIT"
+}
