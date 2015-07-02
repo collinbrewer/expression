@@ -11,5 +11,8 @@
     "url": "https://collinbrewer@bitbucket.org/collinbrewer/expression.git"
   },
   "author": "Collin Brewer <collin@brewer-collective.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
 }
