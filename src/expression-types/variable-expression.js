@@ -1,6 +1,6 @@
 (function(){
 
-   var JSONPointer=require("../bower-components/json-pointer/index.js");
+   var JSONPointer=require("json-pointer");
    var DotPointer=JSONPointer.Factory({delimiter:"."});
 
    function VariableExpression(variable, vars){

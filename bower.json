@@ -1,11 +1,11 @@
 {
   "name": "expression",
   "main": "index.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
     "Collin Brewer <collin@brewer-collective.com>"
   ],
-  "description": "A utility for defining and parsing a logical expressions",
+  "description": "A utility for defining and parsing logical expressions",
   "moduleType": [
     "amd",
     "es6",

@@ -1,6 +1,6 @@
 (function(){
 
-   var JSONPointer=require("../bower-components/json-pointer/index.js");
+   var JSONPointer=require("json-pointer");
    var DotPointer=JSONPointer.Factory({delimiter:"."});
 
    function KeyPathExpression(keyPath)
@@ -26,7 +26,7 @@
 
       debug && console.log("using getter: ", getter);
 
-      var value=DotPointer.evaluate(this.keyPath, o, getter);
+      var value=DotPointer.evaluate(this.keyPath, o, {"evaluateToken":getter});
 
       debug && console.log("value: ", value);
 

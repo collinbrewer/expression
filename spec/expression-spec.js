@@ -186,6 +186,18 @@ describe("KeyPathExpression", function(){
       });
    });
 
+   context("#getValueWithObject with custom getter", function(){
+      it("returns the value using a custom getter", function(){
+
+         var customGetter=function(){
+            console.log("getting: ", arguments);
+            return "custom";
+         };
+
+         expression.getValueWithObject(object, customGetter).should.equal("custom");
+      });
+   });
+
    // context("#copy", function(){
    //    it("creates a copy of the receiver", function(){
    //       expression.copy().getValueWithObject().should.equal("foo");
