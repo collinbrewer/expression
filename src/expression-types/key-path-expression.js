@@ -35,6 +35,10 @@
       return value;
    };
 
+   KeyPathExpression.prototype.getKeyPath=function(){
+      return this.keyPath;
+   };
+
    KeyPathExpression.prototype.getDependentKeyPaths=function(){
 
       var ps=[];
