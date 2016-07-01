@@ -91,9 +91,7 @@ var VariableExpression=require("./expression-types/variable-expression.js");
                }
                else // things are getting "fuzzy"
                {
-                  var operators=s.match(/[\+\-\/\*]/g); // ["+", "-", "/", "*"]
-
-                  if(operators)
+                  if(s.match(/[\+\-\/\*]/) || s.match(/\s?.*?\s?\(.*?\)/))
                   {
                      e=FunctionExpression.parse(s);
                   }

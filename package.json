@@ -1,6 +1,6 @@
 {
   "name": "expression",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A utility for node and browser that evaluates objects against an expression.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "Collin Brewer <collin@brewer-collective.com>",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^3.5.0",
     "mocha": "^2.2.5"
   },
   "dependencies": {

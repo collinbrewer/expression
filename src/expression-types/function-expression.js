@@ -8,14 +8,102 @@
       "%" : "modulus"
    };
 
+   /*
+    * Function Definition Regex
+    * Matches:
+    *    - function(a, b){ return a + " " + b; };
+    *    - function named (a,b) { return a + " " + b; };
+    * Groups:
+    *    - $1 : function name (if given)
+    *    - $2 : function parameters
+    *    - $3 : function body
+    */
+   var functionDefinitionRegex=/^function\s?(.*)(\(.*?\))\s?\{(.*)?\};{0,1}$/;
+
+   /*
+    * Function Call Regex
+    * Matches:
+    *    - add(a,b)
+    * Groups:
+    *    - $1 : function name (if given)
+    *    - $2 : function parameters
+    */
+   var functionCallRegex=/^(.*)?(\(.*?\))\s?;{0,1}$/;
+
+   /*
+    * Shorthand Regex
+    * Matches:
+    *    - a+b
+    * Groups:
+    *    - $1 : function name (if given)
+    *    - $2 : function parameters
+    */
+   var operatorRegex=/[\+\-\/\*]/g;
+
    // functions
-   var Predefined={
+   var Reduce={
       add: function(a, b){ return a+b; },
       subtract: function(a, b){ return a-b; },
       multiply: function(a, b){ return a*b; },
       divide: function(a, b){ return a/b; },
-      modulus: function(a, b){ return a%b; }
+      modulus: function(a, b){ return a%b; },
+      concat: function(a, b){ return a + b; }
    };
+
+   var reduce=[].reduce;
+
+   var Predefined={
+      add: function(){ return reduce.call(arguments, Reduce.add); },
+      subtract: function(){ return reduce.call(arguments, Reduce.subtract); },
+      multiply: function(){ return reduce.call(arguments, Reduce.multiply); },
+      divide: function(){ return reduce.call(arguments, Reduce.divide); },
+      modulus: function(){ return reduce.call(arguments, Reduce.modulus); },
+      concat: function(){ return reduce.call(arguments, Reduce.concat); },
+      hash: function(){
+         console.log("arguments: ", arguments);
+         console.log("this: ", this);
+         var h={}, k, i=arguments.length-1;
+         for(; i>=0; i--) {
+            k=arguments[i];
+            console.log("key: ", k);
+            h[k]=this[k];
+         }
+         return h;
+      }
+   };
+
+   // FIXME: this is *very* weak, need to bite the bullet and move to a true parser, BNF would be nice
+   function parseArgs(argsString) {
+      var args=[];
+      var i = 0;
+      var l = argsString.length;
+
+      // find start of args
+      for (; i < l; i++) {
+        if (argsString[i] === "(") {
+            break;
+        }
+      }
+
+       // find each arg until close
+       var c;
+       var arg="";
+       for(i=i+1; i<l;i++) {
+          c=argsString[i];
+          if(c==="," || c===")") {
+             args.push(arg.trim());
+             arg="";
+             if(c===")")
+             {
+                break;
+             }
+          } else {
+             arg=arg + c;
+          }
+       }
+
+       return args;
+   }
 
    /**
     * @class FunctionExpression
@@ -39,17 +127,44 @@
    // eval:     function(argument1, argument2){ return argument1+argument2; };
    FunctionExpression.parse=function(s){
 
-      var e=null,
-          operatorRegex=/[\+\-\/\*]/g,
-          match=s.match(operatorRegex);
+      console.log("parsing: ", s);
 
-      if(match)
+      s=s.trim();
+
+      var e=null;
+      var fun=s.substr(0, 8);
+      var match;
+
+      if(fun==="FUNCTION") // absolute
       {
-         var operator=match[0],
-             args=s.split(operator);
+         match=s.match(functionDefinitionRegex);
+         var args=parseArgs(match[2]);
+         e=new FunctionExpression(args.shift(), args.shift(), args);
+         e._subtype="absolute";
+      }
+      else if(fun==="function") // eval
+      {
+         match=s.match(functionDefinitionRegex);
+         e=new FunctionExpression(null, s, parseArgs(match[2]));
+         e._subtype="eval";
+      }
+      else if((match=s.match(functionCallRegex))) // longhand
+      {
+         e=new FunctionExpression(null, match[1], parseArgs(match[2]));
+         e._subtype="longhand";
+      }
+      else // shorthand
+      {
+         var match=s.match(operatorRegex);
 
+         if(match)
+         {
+            var operator=match[0],
+                args=s.split(operator);
 
-         e=new FunctionExpression(null, operator, args);
+            e=new FunctionExpression(null, operator, args);
+            e._subtype="shorthand";
+         }
       }
 
       return e;
@@ -82,6 +197,10 @@
          func=functionNamesByOperator[func];
          target=Predefined;
       }
+      else if(func in Predefined)
+      {
+         target=Predefined;
+      }
 
       // finalize the function
       func=target[func];
@@ -94,7 +213,7 @@
          expressions.push(Expression.parse(args[i]).getValueWithObject(o, getter));
       }
 
-      return func.apply(target, expressions); // return func(a.getValueWithObject(o, getter), b.getValueWithObject(o, getter));
+      return func.apply(o, expressions); // return func(a.getValueWithObject(o, getter), b.getValueWithObject(o, getter));
    };
 
    FunctionExpression.prototype.getDependentKeyPaths=function(){
