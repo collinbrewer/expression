@@ -1,7 +1,16 @@
 # Expression
 A utility for node and browser that evaluates objects against an expression.
 
+## Install
+```sh
+npm install collinbrewer/expression -S
+```
+
 ## Usage
+
+```js
+var Expression=require("expression");
+```
 
 Constants:
 ```javascript
