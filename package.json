@@ -11,12 +11,12 @@
     "url": "https://collinbrewer@bitbucket.org/collinbrewer/expression.git"
   },
   "author": "Collin Brewer <collin@brewer-collective.com>",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.2.5"
   },
   "dependencies": {
-    "json-pointer": "git+https://collinbrewer@bitbucket.org/collinbrewer/json-pointer.git"
+    "json-pointer": "github:collinbrewer/json-pointer"
   }
 }
