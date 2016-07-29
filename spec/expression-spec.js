@@ -11,6 +11,12 @@ describe("Expression", function(){
          expression.type.should.equal("constant");
       });
 
+      it("returns a constant expression", function(){
+         var expression=Expression.parse('undefined');
+
+         expression.type.should.equal("constant");
+      });
+
       it("returns an evaluated expression", function(){
          var expression=Expression.parse("self");
 
@@ -244,7 +250,6 @@ describe("KeyPathExpression", function(){
       it("returns the value using a custom getter", function(){
 
          var customGetter=function(){
-            console.log("getting: ", arguments);
             return "custom";
          };
 

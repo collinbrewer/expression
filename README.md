@@ -1,4 +1,6 @@
 # Expression
+[![Dependency Status](https://img.shields.io/david/collinbrewer/expression/master.svg)](https://david-dm.org/collinbrewer/expression.svg)
+
 A utility for node and browser that evaluates objects against an expression.
 
 ## Install

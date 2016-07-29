@@ -76,6 +76,10 @@ var VariableExpression=require("./expression-types/variable-expression.js");
                {
                   e=new ConstantExpression(null);
                }
+               else if(s==="undefined")
+               {
+                  e=new ConstantExpression(undefined);
+               }
                else if(s==="true")
                {
                   e=new ConstantExpression(true);
