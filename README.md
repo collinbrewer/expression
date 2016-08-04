@@ -7,7 +7,7 @@ A utility for node and browser that evaluates objects against an expression.
 
 ## Install
 ```sh
-npm install collinbrewer/expression -S
+npm install @collinbrewer/expression -S
 ```
 
 ## Usage
