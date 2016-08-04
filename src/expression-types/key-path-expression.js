@@ -1,104 +1,97 @@
-(function(){
+var JSONPointer=require("json-pointer");
+var DotPointer=JSONPointer.Factory({delimiter:"."});
 
-   var JSONPointer=require("json-pointer");
-   var DotPointer=JSONPointer.Factory({delimiter:"."});
+function KeyPathExpression(keyPath)
+{
+   this.type="keyPath";
 
-   function KeyPathExpression(keyPath)
+   this.keyPath=keyPath;
+}
+
+KeyPathExpression.prototype.copy=function(){
+   return new KeyPathExpression(this.keyPath);
+};
+
+KeyPathExpression.prototype.getType=function(){
+   return "keyPath";
+};
+
+KeyPathExpression.prototype.getValueWithObject=function(o, getter){
+
+   var debug=false;//(this.keyPath==="transaction.dateCompleted");
+
+   debug && console.group("getting value of keypath(%s) on object: ", this.keyPath, o);
+
+   debug && console.log("using getter: ", getter);
+
+   var value=DotPointer.evaluate(this.keyPath, o, {"evaluateToken":getter});
+
+   debug && console.log("value: ", value);
+
+   debug && console.groupEnd();
+
+   return value;
+};
+
+KeyPathExpression.prototype.getKeyPath=function(){
+   return this.keyPath;
+};
+
+KeyPathExpression.prototype.getDependentKeyPaths=function(){
+
+   var ps=[];
+
+   var splits=this.keyPath.replace(/@[a-zA-Z].+?\./g, "").split("."),
+       key;
+
+   while((key=splits.shift()))
    {
-      this.type="keyPath";
+      if(key.indexOf("@")===-1 && key.indexOf("$")===-1) // if this key is not a collection operator
+      {
+         ps.push(key);
 
-      this.keyPath=keyPath;
+         break;
+      }
    }
 
-   KeyPathExpression.prototype.copy=function(){
-      return new KeyPathExpression(this.keyPath);
-   };
+   return ps;
+};
 
-   KeyPathExpression.prototype.getType=function(){
-      return "keyPath";
-   };
+KeyPathExpression.prototype.getFirstKeyInKeyPath=function(){
 
-   KeyPathExpression.prototype.getValueWithObject=function(o, getter){
+   var components=this.keyPath.split("."),
+       firstKey=null,
+       key;
 
-      var debug=false;//(this.keyPath==="transaction.dateCompleted");
-
-      debug && console.group("getting value of keypath(%s) on object: ", this.keyPath, o);
-
-      debug && console.log("using getter: ", getter);
-
-      var value=DotPointer.evaluate(this.keyPath, o, {"evaluateToken":getter});
-
-      debug && console.log("value: ", value);
-
-      debug && console.groupEnd();
-
-      return value;
-   };
-
-   KeyPathExpression.prototype.getKeyPath=function(){
-      return this.keyPath;
-   };
-
-   KeyPathExpression.prototype.getDependentKeyPaths=function(){
-
-      var ps=[];
-
-      var splits=this.keyPath.replace(/@[a-zA-Z].+?\./g, "").split("."),
-          key;
-
-      while((key=splits.shift()))
+   while((key=components.shift()))
+   {
+      if(key.charAt(0)!=="@")
       {
-         if(key.indexOf("@")===-1 && key.indexOf("$")===-1) // if this key is not a collection operator
-         {
-            ps.push(key);
-
-            break;
-         }
+         firstKey=key;
+         break;
       }
+   }
 
-      return ps;
-   };
+   return firstKey;
+};
 
-   KeyPathExpression.prototype.getFirstKeyInKeyPath=function(){
+KeyPathExpression.prototype._expressionReferencesKeys=function(ks){
+   return (ks.indexOf(this.keyPath)>=0); // TODO: I don't think this is complete because the our keypath could contain one of the keys
+};
 
-      var components=this.keyPath.split("."),
-          firstKey=null,
-          key;
+KeyPathExpression.prototype._expressionReferencesKeyPath=function(){
+   return (this.keyPath.indexOf(".")!==-1);
+};
 
-      while((key=components.shift()))
-      {
-         if(key.charAt(0)!=="@")
-         {
-            firstKey=key;
-            break;
-         }
-      }
+KeyPathExpression.prototype.stringify=function(){
+   return this.keyPath;
+};
 
-      return firstKey;
-   };
+// name -> name
+// business.name -> name of business
+// boss.business.name -> name of business of boss
+KeyPathExpression.prototype.toLocaleString=function(){
+   return this.keyPath.split(".").reverse().join(" of ");
+};
 
-   KeyPathExpression.prototype._expressionReferencesKeys=function(ks){
-      return (ks.indexOf(this.keyPath)>=0); // TODO: I don't think this is complete because the our keypath could contain one of the keys
-   };
-
-   KeyPathExpression.prototype._expressionReferencesKeyPath=function(){
-      return (this.keyPath.indexOf(".")!==-1);
-   };
-
-   KeyPathExpression.prototype.stringify=function(){
-      return this.keyPath;
-   };
-
-   // name -> name
-   // business.name -> name of business
-   // boss.business.name -> name of business of boss
-   KeyPathExpression.prototype.toLocaleString=function(){
-      return this.keyPath.split(".").reverse().join(" of ");
-   };
-
-   // expose
-   (function(mod, name){
-      (typeof(module)!=="undefined" ? (module.exports=mod) : ((typeof(define)!=="undefined" && define.amd) ? define(function(){ return mod; }) : (window[name]=mod)));
-   })(KeyPathExpression, "KeyPathExpression");
-
-})();
+module.exports = KeyPathExpression;

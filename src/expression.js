@@ -24,8 +24,6 @@ var VariableExpression=require("./expression-types/variable-expression.js");
 
    Expression.parse=function(s, args){
 
-      // args && console.assert(args.constructor===Array, "Expression.parse expects args to be an array: " + s + ", " + JSON.stringify(args));
-
       var e, vars;
 
       if(arguments.length===2)
@@ -52,7 +50,7 @@ var VariableExpression=require("./expression-types/variable-expression.js");
             s=args.shift();
          }
 
-         e=_cache[s];
+         args || (e=_cache[s]);
 
          if(!e)
          {
