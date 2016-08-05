@@ -1,6 +1,10 @@
 var JSONPointer=require("json-pointer");
 var DotPointer=JSONPointer.Factory({delimiter:"."});
 
+var collectionOperations = {
+   sum: function(a) { return a.reduce(function(v, c){ return v+c; }); }
+};
+
 function KeyPathExpression(keyPath)
 {
    this.type="keyPath";
@@ -18,17 +22,23 @@ KeyPathExpression.prototype.getType=function(){
 
 KeyPathExpression.prototype.getValueWithObject=function(o, getter){
 
-   var debug=false;//(this.keyPath==="transaction.dateCompleted");
+   var value;
+   var keyPath=this.keyPath;
 
-   debug && console.group("getting value of keypath(%s) on object: ", this.keyPath, o);
+   // is collection operator
+   if(keyPath.charAt(0)==='@') {
+      var index = keyPath.indexOf('.');
+      var operator = keyPath.substr(1, index-1);
+      var keyPath = keyPath.substr(index+1);
+      var a = o.map(function(c) {
+         return DotPointer.evaluate(keyPath, c, {"evaluateToken":getter});
+      });
 
-   debug && console.log("using getter: ", getter);
-
-   var value=DotPointer.evaluate(this.keyPath, o, {"evaluateToken":getter});
-
-   debug && console.log("value: ", value);
-
-   debug && console.groupEnd();
+      value = collectionOperations[operator](a);
+   }
+   else {
+      value=DotPointer.evaluate(keyPath, o, {"evaluateToken":getter});
+   }
 
    return value;
 };

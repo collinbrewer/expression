@@ -5,6 +5,7 @@ describe("VariableExpression", function(){
 
    var expression;
    var object={};
+   var collection=[{age:10}, {age:30}, {age:50}]
 
    context("#getValueWithObject", function(){
       it("returns the value of the function", function(){

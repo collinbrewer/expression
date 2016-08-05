@@ -117,44 +117,6 @@ var VariableExpression=require("./expression-types/variable-expression.js");
       return e;
    };
 
-   Expression.resultIsArithmatic=function(e){
-
-      var isArithmatic=false,
-          i=e.indexOf(".");
-
-      if(i!==-1)
-      {
-         var operator=e.substring(0, i);
-
-         // collection operator
-         if(operator==="@avg" ||
-            operator==="@average" ||
-            operator==="@variance" ||
-            operator==="@count" ||
-            operator==="@min" ||
-            operator==="@max" ||
-            operator==="@median" ||
-            operator==="@mode" ||
-            operator==="@stddev" ||
-            operator==="@sqrt" ||
-            operator==="@log" ||
-            operator==="@ln" ||
-            operator==="@exp" ||
-            operator==="@ceil" ||
-            operator==="@abs" ||
-            operator==="@sum")
-         {
-            isArithmatic=true;
-         }
-         else if(operator==="@count")
-         {
-            isArithmatic=true;
-         }
-      }
-
-      return isArithmatic;
-   };
-
    // getDependentKeyPaths: function(e){
 
    //    var ps=[];
