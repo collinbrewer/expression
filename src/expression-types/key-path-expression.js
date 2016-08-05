@@ -1,6 +1,7 @@
 var JSONPointer=require("json-pointer");
 var DotPointer=JSONPointer.Factory({delimiter:"."});
 
+// https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSExpression_Class/#//apple_ref/occ/clm/NSExpression/expressionForFunction:arguments:
 var collectionOperations = {
    sum: function(a) { return a.reduce(function(v, c){ return v+c; }); }
 };

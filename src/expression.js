@@ -190,6 +190,12 @@ var VariableExpression=require("./expression-types/variable-expression.js");
       return classesByType[type];
    };
 
+   Expression.evaluate = function(e, o, a) {
+      var expression = Expression.parse(e);
+
+      return expression.evaluateWithObject(o, a);
+   };
+
    Expression.expressionReferencesKeys=function(){ return false; };
    Expression.expressionReferencesKeyPath=function(){ return false; };
 
