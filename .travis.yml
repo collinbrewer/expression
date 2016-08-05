@@ -9,6 +9,8 @@ deploy:
   on:
     tags: true
     repo: collinbrewer/expression
-after_script:
-- npm run test:cov
-- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  script:
+     - npm publish --access public
+   after_script:
+     - npm run test:cov
+     - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
