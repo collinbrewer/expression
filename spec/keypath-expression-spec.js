@@ -10,7 +10,7 @@ describe('KeyPathExpression', function(){
             'value' : 'foo'
          }
       },
-      'ages': [{age:10}, {age:30}, {age:50}]
+      'ages': [{age:10}, {age:30}, {age:50}, {}]
    };
 
    beforeEach(function(){
