@@ -13,7 +13,7 @@ describe("VariableExpression", function(){
          expect(expression.getValueWithObject(object)).to.equal("foo");
       });
 
-      it("doesn't cache substitutaion variables", function(){
+      it("doesn't cache substitution variables", function(){
          var e1=Expression.parse("$var", {'var':'foo'});
          var e2=Expression.parse("$var", {'var':'bar'});
 
