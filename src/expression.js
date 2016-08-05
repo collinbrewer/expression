@@ -192,8 +192,7 @@ var VariableExpression=require("./expression-types/variable-expression.js");
 
    Expression.evaluate = function(e, o, a) {
       var expression = Expression.parse(e);
-
-      return expression.evaluateWithObject(o, a);
+      return expression.getValueWithObject(o, a);
    };
 
    Expression.expressionReferencesKeys=function(){ return false; };

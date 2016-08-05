@@ -3,7 +3,7 @@ var DotPointer=JSONPointer.Factory({delimiter:"."});
 
 // https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSExpression_Class/#//apple_ref/occ/clm/NSExpression/expressionForFunction:arguments:
 var collectionOperations = {
-   sum: function(a) { return a.reduce(function(p, c){ return (isNaN(c) ? p : (c+p)); }); }
+   sum: function(a) { return a.reduce(function(p, c){ isNaN(p) && (p=0); return (isNaN(c) ? p : (c+p)); }); }
 };
 
 function KeyPathExpression(keyPath)
