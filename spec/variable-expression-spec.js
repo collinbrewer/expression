@@ -17,8 +17,8 @@ describe("VariableExpression", function(){
          var e1=Expression.parse("$var", {'var':'foo'});
          var e2=Expression.parse("$var", {'var':'bar'});
 
-         expect(e1.getValueWithObject(object)).to.equal("foo");
-         expect(e2.getValueWithObject(object)).to.equal("bar");
+         expect(e1.getValueWithObject()).to.equal("foo");
+         expect(e2.getValueWithObject()).to.equal("bar");
       });
 
       // it('should resolve array indexes', function(){
