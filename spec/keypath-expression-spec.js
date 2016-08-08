@@ -10,20 +10,57 @@ describe('KeyPathExpression', function(){
             'value' : 'foo'
          }
       },
-      'ages': [{}, {age:null}, {age:'c'}, {age:10}, {age:30}, {age:50}]
+      'ages': [{}, {age:30}, {age:null}, {age:'c'}, {age:0}, {age:10}, {age:30}, {age:50}]
    };
-
-   beforeEach(function(){
-      expression=Expression.parse('path.to.value');
-   });
 
    context('#evaluate', function(){
       it('returns the value of the key', function(){
-         expect(expression.getValueWithObject(object)).to.equal('foo');
+         expect(Expression.evaluate('path', object)).to.equal(object.path);
+      });
+
+      it('returns the value of the key path', function(){
+         expect(Expression.evaluate('path.to.value', {})).to.be.undefined;
+         expect(Expression.evaluate('path.to.value', object)).to.equal('foo');
       });
 
       it('should sum a collection', function(){
-         expect(Expression.evaluate('@sum.age', object.ages)).to.equal(90);
+         expect(Expression.evaluate('@sum.age', [])).to.equal(0);
+         expect(Expression.evaluate('@sum.age', object.ages)).to.equal(120);
+      });
+
+      it('should avg a collection', function(){
+         expect(Expression.evaluate('@avg.age', [])).to.be.NaN;
+         expect(Expression.evaluate('@avg.age', object.ages)).to.equal(15);
+      });
+
+      it('should return the min', function(){
+         expect(Expression.evaluate('@min.age', [])).to.be.undefined;
+         expect(Expression.evaluate('@min.age', object.ages)).to.equal(0);
+      });
+
+      it('should return the max', function(){
+         expect(Expression.evaluate('@max.age', [])).to.be.undefined;
+         expect(Expression.evaluate('@max.age', object.ages)).to.equal(50);
+      });
+
+      it('should return the median', function(){
+         expect(Expression.evaluate('@median.age', [])).to.be.undefined;
+         expect(Expression.evaluate('@median.age', object.ages)).to.equal(20);
+      });
+
+      it('should return the mode', function(){
+         expect(Expression.evaluate('@mode.age', [])).to.be.undefined;
+         expect(Expression.evaluate('@mode.age', object.ages)).to.equal(30);
+      });
+
+      it('should return the union', function(){
+         expect(Expression.evaluate('@union.age', [])).to.deep.equal([]);
+         expect(Expression.evaluate('@union.age', object.ages)).to.deep.equal([undefined, 30, null, 'c', 0, 10, 30, 50]);
+      });
+
+      it('should return the distinct union', function(){
+         expect(Expression.evaluate('@distinctUnion.age', [])).to.deep.equal([]);
+         expect(Expression.evaluate('@distinctUnion.age', object.ages)).to.deep.equal([undefined, 30, null, 'c', 0, 10, 50]);
       });
    });
 
