@@ -1,5 +1,5 @@
 # Expression
-[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](https://www.npmjs.com/package/@collinbrewer/expression)
+[![npm](https://img.shields.io/npm/v/@collinbrewer/expression.svg?maxAge=2592000)](https://www.npmjs.com/package/@collinbrewer/expression)
 [![Build Status](https://img.shields.io/travis/collinbrewer/expression.svg)](https://travis-ci.org/collinbrewer/expression)
 [![Coveralls](https://img.shields.io/coveralls/collinbrewer/expression.svg?maxAge=2592000)](https://coveralls.io/github/collinbrewer/expression)
 [![Dependency Status](https://img.shields.io/david/collinbrewer/expression/master.svg)](https://david-dm.org/collinbrewer/expression.svg)
