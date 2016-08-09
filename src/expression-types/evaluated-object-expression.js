@@ -1,13 +1,13 @@
 function EvaluatedObjectExpression () {
-   this.type = 'evaluatedObject';
+	this.type = 'evaluatedObject';
 }
 
 EvaluatedObjectExpression.prototype.copy = function () {
-   return new EvaluatedObjectExpression();
+	return new EvaluatedObjectExpression();
 };
 
 EvaluatedObjectExpression.prototype.getValueWithObject = function (o) {
-   return o;
+	return o;
 };
 
 EvaluatedObjectExpression.prototype.getDependentKeyPaths = function () { return []; };
@@ -16,11 +16,11 @@ EvaluatedObjectExpression.prototype._expressionReferencesKeys = function () { re
 EvaluatedObjectExpression.prototype._expressionReferencesKeyPath = function () { return false; };
 
 EvaluatedObjectExpression.prototype.stringify = function () {
-   return 'self';
+	return 'self';
 };
 
 EvaluatedObjectExpression.prototype.toLocaleString = function () {
-   return 'self';
+	return 'self';
 };
 
 module.exports = EvaluatedObjectExpression;
