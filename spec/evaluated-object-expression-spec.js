@@ -1,36 +1,30 @@
-var should=require("chai").should();
-var Expression=require("../index.js");
+var expect = require('chai').expect;
+var Expression = require('../index.js');
 
-describe("EvaluatedObjectExpression", function(){
+describe('EvaluatedObjectExpression', function () {
+   context('#getValueWithObject', function () {
+      it('returns the given object(self)', function () {
+         var o = new function () {}();
+         var expression = Expression.parse('self');
 
-   context("#getValueWithObject", function(){
-
-      it("returns the given object(self)", function(){
-         var o=new (function(){})();
-         var expression=Expression.parse("self");
-
-         expression.getValueWithObject(o).should.equal(o);
+         expect(expression.getValueWithObject(o)).to.equal(o);
       });
    });
 
-   context("#copy", function(){
+   context('#copy', function () {
+      it('creates a copy of the receiver', function () {
+         var o = new function () {}();
+         var expression = Expression.parse('self');
 
-      it("creates a copy of the receiver", function(){
-         var o=new (function(){})();
-         var expression=Expression.parse("self");
-
-         expression.copy().getValueWithObject(o).should.equal(o);
+         expect(expression.copy().getValueWithObject(o)).to.equal(o);
       });
    });
 
-   context("#stringify", function(){
+   context('#stringify', function () {
+      it('returns a string representing the expression', function () {
+         var expression = Expression.parse('self');
 
-      it("returns a string representing the expression", function(){
-         var o=new (function(){})();
-         var expression=Expression.parse("self");
-
-         expression.stringify().should.equal("self");
+         expect(expression.stringify()).to.equal('self');
       });
    });
-
 });

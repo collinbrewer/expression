@@ -1,58 +1,52 @@
-var should=require("chai").should();
-var Expression=require("../index.js");
+var expect = require('chai').expect;
+var Expression = require('../index.js');
 
-describe("ConstantExpression", function(){
+describe('ConstantExpression', function () {
+   context('#getValueWithObject', function () {
+      it('returns the constant value', function () {
+         var expression = Expression.parse('\'foo\'');
 
-   context("#getValueWithObject", function(){
-
-      it("returns the constant value", function(){
-         var expression=Expression.parse("'foo'");
-
-         // console.log("expression: ", expression);
-
-         expression.getValueWithObject({}).should.equal("foo");
+         expect(expression.getValueWithObject({})).to.equal('foo');
       });
    });
 
-   context("#copy", function(){
+   context('#copy', function () {
+      it('creates a copy of the receiver', function () {
+         var expression = Expression.parse('"foo"');
 
-      it("creates a copy of the receiver", function(){
-         var expression=Expression.parse("'foo'");
-
-         expression.copy().getValueWithObject({}).should.equal("foo");
+         expect(expression.copy().getValueWithObject({})).to.equal('foo');
       });
    });
 
-   context("#stringify", function(){
+   context('#stringify', function () {
+      it('returns a string representing the string', function () {
+         var expression = Expression.parse('"foo"');
 
-      it("returns a string representing the string", function(){
-         var expression=Expression.parse("'foo'");
-
-         expression.stringify().should.equal("\"foo\"");
+         expect(expression.stringify()).to.equal('"foo"');
       });
 
-      it("returns a string representing the boolean", function(){
-         var expression=Expression.parse("true");
+      it('returns a string representing the boolean', function () {
+         var expression = Expression.parse('true');
 
-         expression.stringify().should.equal("true");
+         expect(expression.stringify()).to.equal('true');
       });
 
-      it("returns a string representing the number", function(){
-         var expression=Expression.parse("1");
+      it('returns a string representing the number', function () {
+         var expression = Expression.parse('1');
 
-         expression.stringify().should.equal("1");
+         expect(expression.stringify()).to.equal('1');
       });
 
-      it("returns a string representing the object", function(){
-         var expression=new Expression.parse("{}");
+      it('returns a string representing the object', function () {
+         var expression = Expression.parse('{}');
 
-         expression.stringify().should.equal("{}");
+         expect(expression.stringify()).to.equal('{}');
       });
 
-      it("returns a string representing the array", function(){
-         var expression=Expression.parse("[]");
+      it('returns a string representing the array', function () {
+         var expression = Expression.parse('[]');
 
-         expression.stringify().should.equal("[]");
+         expect(expression.stringify()).to.equal('[]');
       });
    });
 });
