@@ -14,4 +14,4 @@ deploy:
 after_script:
   - npm run test:cov
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - CODECLIMATE_REPO_TOKEN=1d11621e5ee337bbba1679ebc68f5d103329cd4beda88847c909167c51009d27 codeclimate-test-reporter < lcov.info
+  - CODECLIMATE_REPO_TOKEN=1d11621e5ee337bbba1679ebc68f5d103329cd4beda88847c909167c51009d27 ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
