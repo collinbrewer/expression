@@ -83,7 +83,7 @@ function parseArgs (argsString) {
 		}
 	}
 
-	 // find each arg until close
+	// find each arg until close
 	var c;
 	var arg = '';
 	for (i = i + 1; i < l; i++) {

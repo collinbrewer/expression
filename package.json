@@ -7,7 +7,8 @@
     "test": "mocha spec",
     "test:watch": "mocha spec --watch",
     "test:cov": "istanbul cover --report text _mocha -- spec",
-	 "autopublish": "publish"
+    "lint": "eslint .",
+    "autopublish": "publish"
   },
   "repository": {
     "type": "git",

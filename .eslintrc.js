@@ -4,6 +4,6 @@ module.exports = {
 		'mocha': true
 	},
 	'rules': {
-		'brace-style': ['error', 'stroustrup', { 'allowSingleLine': true }]
+		'brace-style': [2, 'stroustrup', { 'allowSingleLine': true }]
 	}
 };
