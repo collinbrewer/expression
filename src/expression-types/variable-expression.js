@@ -31,12 +31,12 @@ VariableExpression.prototype.getDependentKeyPaths = function () { return []; };
 VariableExpression.prototype._expressionReferencesKeys = function () { return false; };
 VariableExpression.prototype._expressionReferencesKeyPath = function () { return false; };
 
-VariableExpression.prototype.stringify = function (shouldSubstitute) {
-	return (shouldSubstitute ? JSON.toString(this.getValueWithObject(null)) : this.variable);
+VariableExpression.prototype.stringify = function () {
+	return this.variable;
 };
 
-VariableExpression.prototype.toLocaleString = function () {
-	return this.variable;
+VariableExpression.prototype.toLocaleString = function (shouldSubstitute) {
+	return this.getValueWithObject();
 };
 
 module.exports = VariableExpression;

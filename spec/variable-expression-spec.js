@@ -4,6 +4,14 @@ var Expression = require('../index.js');
 describe('VariableExpression', function () {
 	var object = {};
 
+	context('#copy', function () {
+		it('creates a copy of the receiver', function () {
+			var expression = Expression.parse('$var', {'var': 'foo'});
+
+			expect(expression.copy().type).to.equal('variable');
+		});
+	});
+
 	context('#getValueWithObject', function () {
 		it('returns the value of the function', function () {
 			var expression = Expression.parse('$var', {'var': 'foo'});
@@ -25,15 +33,27 @@ describe('VariableExpression', function () {
 		// });
 	});
 
-	// context("#copy", function(){
-	//	 it("creates a copy of the receiver", function(){
-	//		 expression.copy().getValueWithObject().should.equal("foo");
-	//	 });
-	// });
-	//
-	// context("#stringify", function(){
-	//	 it("returns a string representing the expression", function(){
-	//		 expression.stringify().should.equal("path.to.value");
-	//	 });
-	// });
+	context('#getDependentKeyPaths', function () {
+		it('returns a string representing the expression', function () {
+			var expression = Expression.parse('$var', {'var': 'foo'});
+
+			expect(expression.getDependentKeyPaths()).to.be.empty;
+		});
+	});
+
+	context('#stringify', function () {
+		it('returns a string representing the expression', function () {
+			var expression = Expression.parse('$var', {'var': 'foo'});
+
+			expect(expression.stringify()).to.equal('$var');
+		});
+	});
+
+	context('#toLocaleString', function () {
+		it('returns a human readable string in english', function () {
+			var expression = Expression.parse('$var', {'var': 'foo'});
+
+			expect(expression.toLocaleString()).to.equal('foo');
+		});
+	});
 });

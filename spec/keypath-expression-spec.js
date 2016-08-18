@@ -11,6 +11,22 @@ describe('KeyPathExpression', function () {
 		'ages': [{}, {age: 30}, {age: null}, {age: 'c'}, {age: 0}, {age: 10}, {age: 30}, {age: 50}]
 	};
 
+	context('#copy', function () {
+		it('creates a copy', function () {
+			var expression = Expression.parse('path');
+
+			expect(expression.copy().getType()).to.equal('keyPath');
+		});
+	});
+
+	context('#getType', function () {
+		it('returns the type', function () {
+			var expression = Expression.parse('path');
+
+			expect(expression.getType()).to.equal('keyPath');
+		});
+	});
+
 	context('#evaluate', function () {
 		it('returns the value of the key', function () {
 			expect(Expression.evaluate('path', object)).to.equal(object.path);
@@ -62,6 +78,34 @@ describe('KeyPathExpression', function () {
 		});
 	});
 
+	context('#getKeyPath', function () {
+		it('returns the key path', function () {
+			var expression = Expression.parse('path.to.key');
+
+			expect(expression.getKeyPath()).to.equal('path.to.key');
+		});
+
+		it('ignores collection operators', function () {
+			var expression = Expression.parse('@avg.amount');
+
+			expect(expression.getFirstKeyInKeyPath()).to.equal('amount');
+		});
+	});
+
+	context('#getFirstKeyInKeyPath', function () {
+		it('returns first string', function () {
+			var expression = Expression.parse('path.to.key');
+
+			expect(expression.getFirstKeyInKeyPath()).to.equal('path');
+		});
+
+		it('ignores collection operators', function () {
+			var expression = Expression.parse('@avg.amount');
+
+			expect(expression.getFirstKeyInKeyPath()).to.equal('amount');
+		});
+	});
+
 	context('#getValueWithObject with custom getter', function () {
 		it('returns the value using a custom getter', function () {
 			var customGetter = function () {
@@ -72,15 +116,19 @@ describe('KeyPathExpression', function () {
 		});
 	});
 
-	// context('#copy', function(){
-	//	 it('creates a copy of the receiver', function(){
-	//		 expression.copy().getValueWithObject().should.equal('foo');
-	//	 });
-	// });
-	//
-	// context('#stringify', function(){
-	//	 it('returns a string representing the expression', function(){
-	//		 expression.stringify().should.equal('path.to.value');
-	//	 });
-	// });
+	context('#stringify', function () {
+		it('returns a string representing the expression', function () {
+			var expression = Expression.parse('path.to.value');
+
+			expect(expression.stringify()).to.equal('path.to.value');
+		});
+	});
+
+	context('#toLocaleString', function () {
+		it('creates a copy of the receiver', function () {
+			var expression = Expression.parse('employer.name');
+
+			expect(expression.toLocaleString()).to.equal('name of employer');
+		});
+	});
 });

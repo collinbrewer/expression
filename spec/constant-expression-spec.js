@@ -49,4 +49,11 @@ describe('ConstantExpression', function () {
 			expect(expression.stringify()).to.equal('[]');
 		});
 	});
+
+	context('#toLocaleString', function () {
+		it('returns a human string in english', function () {
+			var expression = Expression.parse('1');
+			expect(expression.toLocaleString()).to.equal('1');
+		});
+	});
 });
