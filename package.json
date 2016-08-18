@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha spec",
     "test:watch": "mocha spec --watch",
-    "test:cov": "istanbul cover --report text _mocha -- spec"
+    "test:cov": "istanbul cover --report text _mocha -- spec",
+	 "autopublish": "publish"
   },
   "repository": {
     "type": "git",
