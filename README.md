@@ -1,9 +1,9 @@
 # Expression
 [![npm](https://img.shields.io/npm/v/@collinbrewer/expression.svg?maxAge=2592000)](https://www.npmjs.com/package/@collinbrewer/expression)
-[![Build Status](https://img.shields.io/travis/collinbrewer/expression.svg)](https://travis-ci.org/collinbrewer/expression)
+[![CircleCI](https://img.shields.io/circleci/project/collinbrewer/expression.svg?maxAge=2592000)](https://circleci.com/gh/collinbrewer/expression)
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/collinbrewer/expression.svg?maxAge=2592000)](https://codeclimate.com/github/collinbrewer/expression)
 [![Code Climate](https://img.shields.io/codeclimate/github/collinbrewer/expression.svg?maxAge=2592000)](https://codeclimate.com/github/collinbrewer/expression)
-[![Dependency Status](https://img.shields.io/david/collinbrewer/expression/master.svg)](https://david-dm.org/collinbrewer/expression.svg)
+[![David](https://img.shields.io/david/collinbrewer/expression.svg?maxAge=2592000)](https://david-dm.org/collinbrewer/expression)
 
 A utility for node and browser that evaluates objects against an expression.
 
