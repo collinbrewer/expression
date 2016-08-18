@@ -2,6 +2,7 @@ language: node_js
 node_js:
 - '6'
 before_deploy:
+- echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_EMAIL" | npm login
 - npm access public
 deploy:
   provider: npm
