@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha spec",
     "test:watch": "mocha spec --watch",
-    "test:cov": "istanbul cover --report text _mocha -- spec",
+    "test:cov": "istanbul cover --report lcov --report json --report text --report html _mocha -- spec",
     "lint": "eslint .",
     "autopublish": "publish"
   },
