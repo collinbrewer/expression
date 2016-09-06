@@ -9,6 +9,7 @@ var EvaluatedObjectExpression = require('./expression-types/evaluated-object-exp
 var FunctionExpression = require('./expression-types/function-expression.js');
 var KeyPathExpression = require('./expression-types/key-path-expression.js');
 var VariableExpression = require('./expression-types/variable-expression.js');
+var AnyKeyExpression = require('./expression-types/anykey-expression.js');
 
 var _cache = {};
 
@@ -45,6 +46,9 @@ Expression.parse = function (s, a) {
 				if (c === '$') {
 					cacheable = false;
 					e = new VariableExpression(s, vars);
+				}
+				else if (s === '*') {
+					e = new AnyKeyExpression();
 				}
 				else if (c === "'" || c === '"') { // quoted string
 					e = new ConstantExpression(s.substring(1, s.length - 1));
