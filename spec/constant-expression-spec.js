@@ -1,7 +1,16 @@
 var expect = require('chai').expect;
 var Expression = require('../index.js');
+var ConstantExpression = require('../src/expression-types/constant-expression.js');
 
 describe('ConstantExpression', function () {
+	context('#getType', function () {
+		it('returns anykey', function () {
+			var expression = new ConstantExpression();
+
+			expect(expression.getType()).to.equal('constant');
+		});
+	});
+
 	context('#getValueWithObject', function () {
 		it('returns the constant value', function () {
 			var expression = Expression.parse('\'foo\'');

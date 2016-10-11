@@ -67,6 +67,16 @@ describe('KeyPathExpression', function () {
 			expect(Expression.evaluate('@mode.age', object.ages)).to.equal(30);
 		});
 
+		it('should return the variance', function () {
+			expect(Expression.evaluate('@variance.age', [])).to.equal(0);
+			expect(Expression.evaluate('@variance.age', object.ages)).to.equal(325);
+		});
+
+		it('should return the standard deviation', function () {
+			expect(Expression.evaluate('@stddev.age', [])).to.equal(0);
+			expect(Expression.evaluate('@stddev.age', object.ages)).to.equal(18.027756377319946);
+		});
+
 		it('should return the union', function () {
 			expect(Expression.evaluate('@union.age', [])).to.deep.equal([]);
 			expect(Expression.evaluate('@union.age', object.ages)).to.deep.equal([undefined, 30, null, 'c', 0, 10, 30, 50]);

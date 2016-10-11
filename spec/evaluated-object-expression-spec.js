@@ -1,7 +1,16 @@
 var expect = require('chai').expect;
 var Expression = require('../index.js');
+var EvaluatedObjectExpression = require('../src/expression-types/evaluated-object-expression.js');
 
 describe('EvaluatedObjectExpression', function () {
+	context('#getType', function () {
+		it('returns anykey', function () {
+			var expression = new EvaluatedObjectExpression();
+
+			expect(expression.getType()).to.equal('evaluatedObject');
+		});
+	});
+
 	context('#getDependentKeyPaths', function () {
 		it('should return empty', function () {
 			var expression = Expression.parse('self');

@@ -48,15 +48,24 @@ function mode (a) {
 }
 
 function variance (a) {
-	var avg = avg(a);
+	var average = avg(a);
 	var i = a.length;
 	var v = 0;
+	var n;
 
-	while (i--) {
-		v += Math.pow((a[i] - avg), 2);
+	if (i > 2) {
+		while (i--) {
+			n = Number(a[i]);
+
+			if (isNaN(n)) {
+				n = 0;
+			}
+
+			v += Math.pow((n - average), 2);
+		}
+
+		v /= a.length;
 	}
-
-	v /= a.length;
 
 	return v;
 }
@@ -85,6 +94,7 @@ module.exports = {
 	max: max,
 	median: median,
 	mode: mode,
+	variance: variance,
 	stddev: stddev,
 	union: union,
 	distinctUnion: distinctUnion

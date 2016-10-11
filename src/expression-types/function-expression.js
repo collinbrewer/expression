@@ -19,6 +19,17 @@ var functionNamesByOperator = {
 var functionDefinitionRegex = /^function\s?(.*)(\(.*?\))\s?\{(.*)?\};{0,1}$/;
 
 /*
+ * Function Descriptor Regex
+ * Matches:
+ *    - FUNCTION(receiver, selectorName, arguments, ...)
+ * Groups:
+ *    - $1 : receiver
+ *    - $2 : selectorName
+ *    - $3 : arguments
+ */
+var functionDescriptorRegex = /^FUNCTION\s?\((.*?),(.*?),(.*?)\)$/
+
+/*
  * Function Call Regex
  * Matches:
  *	 - add(a,b)
@@ -118,7 +129,7 @@ function FunctionExpression (target, func, args) {
 	this.args = args;
 }
 
-// TODO: Support additional formats:
+// Supports formats:
 // longhand: add(1, 2)
 // absolute: FUNCTION(receiver, selectorName, arguments, ...)
 // eval:	  function(argument1, argument2){ return argument1+argument2; };
@@ -131,18 +142,18 @@ FunctionExpression.parse = function (s) {
 	var args;
 
 	if (fun === 'FUNCTION') { // absolute
-		match = s.match(functionDefinitionRegex);
-		args = parseArgs(match[2]);
-		e = new FunctionExpression(args.shift(), args.shift(), args);
+		match = s.match(functionDescriptorRegex);
+		args = parseArgs('(' + match[3] + ')');
+		e = new FunctionExpression(JSON.parse(match[1]), JSON.parse(match[2]), args);
 		e._subtype = 'absolute';
 	}
 	else if (fun === 'function') { // eval
 		match = s.match(functionDefinitionRegex);
-		e = new FunctionExpression(null, s, parseArgs(match[2]));
+		e = new FunctionExpression(undefined, s, parseArgs(match[2]));
 		e._subtype = 'eval';
 	}
 	else if ((match = s.match(functionCallRegex))) { // longhand
-		e = new FunctionExpression(null, match[1], parseArgs(match[2]));
+		e = new FunctionExpression(undefined, match[1], parseArgs(match[2]));
 		e._subtype = 'longhand';
 	}
 	else { // shorthand
@@ -158,6 +169,10 @@ FunctionExpression.parse = function (s) {
 	}
 
 	return e;
+};
+
+FunctionExpression.prototype.getType = function () {
+	return this.type;
 };
 
 FunctionExpression.prototype.getArguments = function () {
@@ -200,13 +215,13 @@ FunctionExpression.prototype.getValueWithObject = function (o, getter) {
 		expressions.push(Expression.parse(args[i]).getValueWithObject(o, getter));
 	}
 
-	return func.apply(o, expressions); // return func(a.getValueWithObject(o, getter), b.getValueWithObject(o, getter));
+	return func.apply(o || this.target, expressions); // return func(a.getValueWithObject(o, getter), b.getValueWithObject(o, getter));
 };
 
 FunctionExpression.prototype.getDependentKeyPaths = function () {
 	var Expression = require('../expression.js');
 	var ps = [];
-	var args = this.arguments;
+	var args = this.args;
 	var l = args.length;
 	var a;
 
@@ -219,8 +234,6 @@ FunctionExpression.prototype.getDependentKeyPaths = function () {
 	return ps;
 };
 
-FunctionExpression.prototype._expressionReferencesKeyPath = function () { return false; };
-
 FunctionExpression.prototype.stringify = function () {
 	var func = this.func;
 
@@ -231,6 +244,7 @@ FunctionExpression.prototype.stringify = function () {
 	return func + '(' + this.args.join(', ') + ')';
 };
 
+// sum(1, 2)
 FunctionExpression.prototype.toLocaleString = function () {
 	return 'function';
 };

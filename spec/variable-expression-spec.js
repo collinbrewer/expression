@@ -1,7 +1,15 @@
 var expect = require('chai').expect;
 var Expression = require('../index.js');
+var VariableExpression = require('../../expression/src/expression-types/variable-expression.js');
 
 describe('VariableExpression', function () {
+	context('#getType', function () {
+		it('returns anykey', function () {
+			var expression = new VariableExpression();
+
+			expect(expression.getType()).to.equal('variable');
+		});
+	});
 	var object = {};
 
 	context('#copy', function () {

@@ -8,6 +8,10 @@ function VariableExpression (variable, vars) {
 	this._substitutionVariables = vars;
 }
 
+VariableExpression.prototype.getType = function () {
+	return this.type;
+};
+
 VariableExpression.prototype.copy = function () {
 	return new VariableExpression(this.variable, this._substitutionVariables); // Note sure this is needed... .Util.extend({}, this._substitutionVariables));
 };
@@ -28,8 +32,6 @@ VariableExpression.prototype.getValueWithObject = function (o, vars) {
 };
 
 VariableExpression.prototype.getDependentKeyPaths = function () { return []; };
-VariableExpression.prototype._expressionReferencesKeys = function () { return false; };
-VariableExpression.prototype._expressionReferencesKeyPath = function () { return false; };
 
 VariableExpression.prototype.stringify = function () {
 	return this.variable;

@@ -3,6 +3,14 @@ var Expression = require('../index.js');
 var AnyKeyExpression = require('../../expression/src/expression-types/anykey-expression.js');
 
 describe('AnyKeyExpression', function () {
+	context('#getType', function () {
+		it('returns anykey', function () {
+			var expression = new AnyKeyExpression();
+
+			expect(expression.getType()).to.equal('anykey');
+		});
+	});
+
 	context('#getValueWithObject', function () {
 		it('returns true', function () {
 			var expression = Expression.parse('*');

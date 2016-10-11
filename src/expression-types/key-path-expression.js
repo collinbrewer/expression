@@ -74,14 +74,6 @@ KeyPathExpression.prototype.getFirstKeyInKeyPath = function () {
 	return firstKey;
 };
 
-KeyPathExpression.prototype._expressionReferencesKeys = function (ks) {
-	return (ks.indexOf(this.keyPath) >= 0); // TODO: I don't think this is complete because the our keypath could contain one of the keys
-};
-
-KeyPathExpression.prototype._expressionReferencesKeyPath = function () {
-	return (this.keyPath.indexOf('.') !== -1);
-};
-
 KeyPathExpression.prototype.stringify = function () {
 	return this.keyPath;
 };

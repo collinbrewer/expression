@@ -99,45 +99,10 @@ Expression.parse = function (s, a) {
 	return e;
 };
 
-// getDependentKeyPaths: function(e){
-
-//	 var ps=[];
-
-//	 if(Expression.getType(e)==="keypath")
-//	 {
-//		 var splits=Expression.getKeyPath(e).replace(/@[a-zA-Z].+?\./g, "").split("."),
-//			  key;
-
-//		 while((key=splits.shift()))
-//		 {
-//			 if(key.indexOf("@")===-1) // if this key is not a collection operator
-//			 {
-//				 ps.push(key);
-
-//				 break;
-//			 }
-//		 }
-//	 }
-//	 else if(e.type)
-//	 {
-//		 if(e.type==="function")
-//		 {
-//			 console.log("found function expression!");
-//		 }
-//	 }
-//	 else
-//	 {
-//		 console.warn("not sure...", e);
-//	 }
-
-//	 return ps;
-// },
-
 Expression.expressionWithType = function (type, args) {
 	var className = Expression.getExpressionClassForType(type);
 
 	if (className) {
-		console.log('className: ', className);
 		return window[className].apply(null, args);
 	}
 
@@ -173,9 +138,6 @@ Expression.evaluate = function (e, o, a) {
 	var expression = Expression.parse(e);
 	return expression.getValueWithObject(o, a);
 };
-
-Expression.expressionReferencesKeys = function () { return false; };
-Expression.expressionReferencesKeyPath = function () { return false; };
 
 Expression.prototype.copy = function () { console.warn("Expression subclasses require 'copy' to be overridden."); };
 Expression.prototype.stringify = function () {};
