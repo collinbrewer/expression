@@ -106,6 +106,23 @@ describe('KeyPathExpression', function () {
 		});
 	});
 
+	context('#getDependentKeyPaths', function () {
+		it('returns a key', function () {
+			var expression = Expression.parse('path');
+			expect(expression.getDependentKeyPaths()).to.deep.equal(['path']);
+		});
+
+		it('returns a keypath', function () {
+			var expression = Expression.parse('path.to.value');
+			expect(expression.getDependentKeyPaths()).to.deep.equal(['path']);
+		});
+
+		it('returns an aggregate key', function () {
+			var expression = Expression.parse('@sum.path');
+			expect(expression.getDependentKeyPaths()).to.deep.equal(['path']);
+		});
+	});
+
 	context('#getValueWithObject with custom getter', function () {
 		it('returns the value using a custom getter', function () {
 			var customGetter = function () {
