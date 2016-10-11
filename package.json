@@ -1,6 +1,6 @@
 {
   "name": "@collinbrewer/expression",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A utility for node and browser that evaluates objects against an expression.",
   "main": "index.js",
   "scripts": {
