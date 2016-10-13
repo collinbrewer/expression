@@ -110,9 +110,6 @@ Expression.expressionWithType = function (type, args) {
 };
 
 Expression.expressionForConstantValue = function (v) {
-	// var e=Expression._expressionWithType("constant");
-
-	// e.setConstant()
 	return new ConstantExpression(v);
 };
 
@@ -120,8 +117,8 @@ Expression.expressionForKeyPath = function (k) {
 	return new KeyPathExpression(k);
 };
 
-Expression.expressionForFunction = function () {
-	return Expression._expressionWithType('function', arguments);
+Expression.expressionForFunction = function (target, func, args) {
+	return new FunctionExpression(target, func, args);
 };
 
 Expression.getExpressionClassForType = function (type) {

@@ -30,6 +30,6 @@
     "publish": "^0.6.0"
   },
   "dependencies": {
-    "json-pointer": "github:collinbrewer/json-pointer"
+    "@collinbrewer/json-pointer": "^0.1.0"
   }
 }

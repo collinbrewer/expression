@@ -116,6 +116,13 @@ describe('KeyPathExpression', function () {
 		});
 	});
 
+	context('#getPointer', function () {
+		it('returns the pointer object', function () {
+			var expression = Expression.parse('path.to.value');
+			expect(expression.getPointer()).to.exist;
+		});
+	});
+
 	context('#getDependentKeyPaths', function () {
 		it('returns a key', function () {
 			var expression = Expression.parse('path');

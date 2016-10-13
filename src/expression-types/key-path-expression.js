@@ -42,6 +42,10 @@ KeyPathExpression.prototype.getKeyPath = function () {
 	return this.keyPath;
 };
 
+KeyPathExpression.prototype.getPointer = function () {
+	return new DotPointer(this.keyPath);
+};
+
 KeyPathExpression.prototype.getDependentKeyPaths = function () {
 	var ps = [];
 
