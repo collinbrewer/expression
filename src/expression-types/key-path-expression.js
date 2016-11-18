@@ -1,4 +1,4 @@
-var JSONPointer = require('json-pointer');
+var JSONPointer = require('@collinbrewer/json-pointer');
 var DotPointer = JSONPointer.Factory({delimiter: '.'});
 var operations = require('../util/functions.js');
 

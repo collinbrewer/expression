@@ -15,6 +15,7 @@ var _cache = {};
 
 function Expression () {}
 
+// https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVODependentKeys.html
 Expression.prototype.getDependentKeyPaths = function () {
 	return [];
 };

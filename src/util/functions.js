@@ -1,4 +1,5 @@
 // https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSExpression_Class/#//apple_ref/occ/clm/NSExpression/expressionForFunction:arguments:
+// https://support.airtable.com/hc/en-us/articles/203255215-Formula-Field-Reference#numeric_operators
 
 function num (n) { return (isNaN(n) ? 0 : n); }
 
